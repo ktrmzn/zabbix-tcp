@@ -23,16 +23,16 @@ s["time-wait"]=0} \
 # Get TCP stats by using netstat command
 get_TCP_conn_stats(){
 netstat -st |sed -n '/Tcp:/,+10p' | grep -v "Tcp:" | sed 's/^    //g' | awk '{a[NR]=$0"  "$1} END {host="-"; for (i in a) {\
-sub (/^.* active connections openings /, "tcp.conn.active.opens", a[i]); \
-sub (/^.* passive connection openings /, "tcp.conn.passive.opens", a[i]); \
-sub (/^.* failed connection attempts /, "tcp.conn.failed.attempts", a[i]); \
-sub (/^.* resets sent /, "tcp.conn.resets.sent", a[i]); \
-sub (/^.* connection resets received /, "tcp.conn.resets.recv", a[i]); \
-sub (/^.* connections established /, "tcp.conn.estab", a[i]); \
-sub (/^.* segments received /, "tcp.seg.recv", a[i]); \
-sub (/^.* segments send out /, "tcp.seg.send", a[i]); \
-sub (/^.* segments retransmited /, "tcp.seg.retrans", a[i]); \
-sub (/^.* bad segments received. /, "tcp.seg.bad", a[i]); \
+sub (/^[0-9]+ active connection openings /, "tcp.conn.active.opens", a[i]); \
+sub (/^[0-9]+ passive connection openings /, "tcp.conn.passive.opens", a[i]); \
+sub (/^[0-9]+ failed connection attempts /, "tcp.conn.failed.attempts", a[i]); \
+sub (/^[0-9]+ resets sent /, "tcp.conn.resets.sent", a[i]); \
+sub (/^[0-9]+ connection resets received /, "tcp.conn.resets.recv", a[i]); \
+sub (/^[0-9]+ connections established /, "tcp.conn.estab", a[i]); \
+sub (/^[0-9]+ segments received /, "tcp.seg.recv", a[i]); \
+sub (/^[0-9]+ segments sent out /, "tcp.seg.send", a[i]); \
+sub (/^[0-9]+ segments retransmitted /, "tcp.seg.retrans", a[i]); \
+sub (/^[0-9]+ bad segments received /, "tcp.seg.bad", a[i]); \
 print host, a[i]}}'
 }
 
